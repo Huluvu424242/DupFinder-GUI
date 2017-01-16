@@ -1,0 +1,15 @@
+[![Stories in Ready](https://badge.waffle.io/FunThomas424242/DupFinder-GUI.svg?label=ready&title=Ready)](http://waffle.io/FunThomas424242/DupFinder-GUI)
+[![Build Status](https://travis-ci.org/FunThomas424242/DupFinder-GUI.svg?branch=master)](https://travis-ci.org/FunThomas424242/DupFinder-GUI)
+
+# DupFinder-GUI
+Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
+
+## Lizenz - GPL v3
+Da die Programmbibliothek [DupFinder](https://github.com/mkymikky/DupFinder) unter der GPL-v3 lizensiert ist,
+müssen alle abgeleiteten Werke ebenfalls unter der GPL-v3 lizensiert werden. Da geplant ist aus der GUI Anwendung 
+auf das JAR der DupFinder Bibliothek zu "verlinken" bzw. dieses sogar zu embedden, muss diese GUI Anwendung
+ebenfalls unter GPL v3 stehen. 
+
+Die GPL betrachtet Verlinkung von Programmkode (Objektkode Ebene per Linker bzw. bei Java ByteCode Ebene per Compiler) 
+als Ableitung eines Werkes.
+
