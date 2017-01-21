@@ -1,5 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/FunThomas424242/DupFinder-GUI.svg?label=ready&title=Ready)](http://waffle.io/FunThomas424242/DupFinder-GUI)
 [![Build Status](https://travis-ci.org/FunThomas424242/DupFinder-GUI.svg?branch=master)](https://travis-ci.org/FunThomas424242/DupFinder-GUI)
+[![codecov](https://codecov.io/gh/funthomas424242/DupFinder-GUI/branch/master/graph/badge.svg)](https://codecov.io/gh/funthomas424242/DupFinder-GUI)
 
 # DupFinder-GUI
 Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
