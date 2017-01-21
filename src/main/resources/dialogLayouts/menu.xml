@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE View SYSTEM "view.dtd">
+<View>
+    <menu guiId="file" text="'File'" mnemonic="%F">
+        <menuItem text="LABEL_SAVE" mnemonic="%S" tooltip="TOOLTIP_SAVE"
+                  actionCommand="doSave" />
+        <checkBoxMenuItem text="'AutoSave'" />
+        <separator />
+        <menuItem text="'Import'" />
+        <menuItem text="'Export'" />
+        <menuItem text="'Export All to XML ...'" />
+        <separator />
+        <menuItem text="LABEL_EXIT" mnemonic="%E" tooltip="TOOLTIP_EXIT"
+                  actionCommand="onWindowClosing" />
+    </menu>
+    <menu guiId="ansicht" text="'Ansicht'" mnemonic="%A">
+        <checkBoxMenuItem text="'Geschlossene Aktionen'" />
+        <checkBoxMenuItem text="'Geschlossene Orte und Projekte'" />
+        <separator />
+        <menu text="'Einstellungen (erfordern Neustart)'">
+            <checkBoxMenuItem text="'Karteikarte �bersicht'" />
+            <checkBoxMenuItem text="'Karteikarte Eingang'" />
+            <checkBoxMenuItem text="'Karteikarte Ausf�hrbare Aufgaben'" />
+            <checkBoxMenuItem text="'Karteikarte Warteliste'" />
+            <checkBoxMenuItem text="'Karteikarte �berpr�fung'" />
+            <checkBoxMenuItem text="'Karteikarte Verwaltung'"
+                              selected="isTabVisible(6)"
+                              actionCommand="changeVisibilityOfTab(6,?value)" />
+            <checkBoxMenuItem text="'Karteikarte Stundenabrechnung'"
+                              enabled="~f" />
+            <separator />
+            <checkBoxMenuItem text="'Karteikarte Lizenzinfo'"
+                              enabled="~f" />
+            <checkBoxMenuItem text="'Karteikarte Programminfo'"
+                              enabled="~f" />
+        </menu>
+    </menu>
+    <menu guiId="hilfe" text="'Hilfe'" mnemonic="%H">
+        <menuItem text="'Projekt Webseite'" />
+        <menuItem text="'Beispiel importieren'" />
+        <separator />
+        <menuItem text="'Versionsinfo, �ber ...'" />
+    </menu>
+
+</View>

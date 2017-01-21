@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE View SYSTEM "view.dtd">
+<View>
+    <keyMap guiId="keyMap">
+        <input focusCondition="window" stroke="'ESCAPE'"
+               actionCommand="onWindowClosing" />
+        <input focusCondition="window" stroke="'ctrl S'"
+               actionCommand="doSave" />
+    </keyMap>
+</View>

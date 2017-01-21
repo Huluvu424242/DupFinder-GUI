@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE View SYSTEM "view.dtd">
+<View>
+    <!-- Alias for Domain classes -->
+    <ClassAlias name="GuiConstants"
+                class="com.github.funthomas424242.dupfinder.gui.GuiConstants" />
+    <ClassAlias name="Events"
+                class="com.github.funthomas424242.dupfinder.gui.EventConstants" />
+    <!-- Alias for AWT/Swing classes -->
+    <ClassAlias name="BorderFactory" class="javax.swing.BorderFactory" />
+    <ClassAlias name="Color" class="java.awt.Color" />
+
+
+    <!-- -->
+    <!-- *** Styles *** -->
+    <!-- -->
+    <!-- Default Style -->
+    <Style name="Default">
+        <Style_label font=":GuiConstants.FONT_BOLD"
+                     foreground=":Color.BLUE" suffix="':'" />
+        <Style_menu font=":GuiConstants.FONT_BOLD" />
+        <Style_toolbar font=":GuiConstants.FONT_BOLD"
+                       border=":BorderFactory.createLoweredBevelBorder()" />
+        <Style_flowLayout alignment="leading" />
+        <Style_borderLayout
+                border=":BorderFactory.createLoweredBevelBorder()" />
+        <Style_tabbedPane
+                border=":BorderFactory.createLoweredBevelBorder()" />
+        <Style_button enabled="~t"
+                      tooltip="'missing tooltip, please send mail'" />
+        <Style_edit editable="~t" />
+        <Style_textArea focusKeysForward="TAB, ctrl TAB"
+                        focusKeysBackward="shift TAB, ctrl shift TAB" width="30"
+                        visibleRows="4" lineWrap="true" />
+    </Style>
+
+    <Style name="Überschrift">
+        <Style_label font=":GuiConstants.FONT_BOLD"
+                     foreground=":Color.BLACK" />
+    </Style>
+    <Style name="Gliederung">
+        <Style_label font=":GuiConstants.FONT_PLAIN"
+                     foreground=":Color.BLUE" />
+    </Style>
+
+    <Style name="Bevel">
+        <Style_button enabled="~t"
+                      border=":BorderFactory.createRaisedBevelBorder()"
+                      tooltip="'missing tooltip, please send mail'" />
+    </Style>
+
+    <!-- -->
+    <!-- Edit Form Style -->
+    <Style name="editForm" extends="Default">
+        <Style_labelForm hSpacing="5" vSpacing="2" />
+        <Style_label hAlignment="right" suffix="':'"
+                     vAlignment="center" />
+        <Style_edit editable="~t" />
+        <Style_textArea editable="~t" />
+        <Style_comboBox enabled="~t" />
+        <Style_list enabled="~t" />
+        <Style_checkBox enabled="~t" />
+    </Style>
+
+    <Style name="raised">
+        <Style_panel border=":BorderFactory.createRaisedBevelBorder()" />
+    </Style>
+
+</View>
