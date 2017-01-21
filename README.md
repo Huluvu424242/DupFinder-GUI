@@ -14,3 +14,6 @@ ebenfalls unter GPL v3 stehen.
 Die GPL betrachtet Verlinkung von Programmkode (Objektkode Ebene per Linker bzw. bei Java ByteCode Ebene per Compiler) 
 als Ableitung eines Werkes.
 
+## Quellen
+
+* http://blog.ropardo.ro/2009/11/09/about-gui4j-a-framework-for-creating-gui-with-xml-in-java/
