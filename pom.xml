@@ -72,6 +72,18 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-funthomas424242-funthomas424242-libs</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/funthomas424242/funthomas424242-libs</url>
+        </repository>
+    </repositories>
+
+
     <!-- jar files the project is dependent on -->
     <dependencies>
         <dependency>
@@ -83,6 +95,7 @@
             <groupId>com.github.funthomas424242</groupId>
             <artifactId>org.gui4j</artifactId>
             <version>0.1.4</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 
