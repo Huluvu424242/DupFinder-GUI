@@ -51,8 +51,6 @@ public class DupFinderTest {
 
         } catch (IllegalArgumentException ex) {
             assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> existiert nicht:"));
-        }catch (Throwable th){
-            throw th;
         }
     }
 
@@ -64,8 +62,6 @@ public class DupFinderTest {
 
         } catch (IllegalArgumentException ex) {
             assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist kein Verzeichnis:"));
-        }catch (Throwable th){
-            throw th;
         }
     }
 
@@ -77,9 +73,17 @@ public class DupFinderTest {
         try {
             DupFinder.main(new String[]{unreadableFolder});
             fail();
+
         } catch (IllegalArgumentException ex) {
-        	System.out.println(ex.getMessage());
-            assertTrue(ex.getMessage().trim().startsWith("FEHLER: Parameter <Verzeichnis> ist nicht lesbar:"));
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist nicht lesbar:"));
         }
+    }
+
+    @Test
+    public void validFolderToScan() throws IOException, InterruptedException {
+    	File file = new File("src/test/resources/");
+    	assumeTrue(file.mkdir());
+    	DupFinder.main(new String[]{"src/test/resources/"});
+    	assertTrue(file.delete());
     }
 }

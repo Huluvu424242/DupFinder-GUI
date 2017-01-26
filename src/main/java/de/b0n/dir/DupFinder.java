@@ -34,7 +34,7 @@ public class DupFinder {
 			System.err.println(MESSAGE_NO_PARAM);
 			throw new IllegalArgumentException(MESSAGE_NO_PARAM);
 		}
-		final File folder = new File(args[0], "");
+		final File folder = new File(args[0] + File.separator);
 
 		final DupFinderGUI gui = new DupFinderGUI();
 		gui.showView();
