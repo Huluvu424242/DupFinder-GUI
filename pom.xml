@@ -87,17 +87,18 @@
     <!-- jar files the project is dependent on -->
     <dependencies>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.2</version>
+            <groupId>DupFinder</groupId>
+            <artifactId>DupFinder</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.funthomas424242</groupId>
-            <artifactId>org.gui4j</artifactId>
-            <version>0.1.4</version>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- in 4.12 hamcrest dependency is missing -->
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>
