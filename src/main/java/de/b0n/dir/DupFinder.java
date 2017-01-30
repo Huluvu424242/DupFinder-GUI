@@ -59,7 +59,7 @@ public class DupFinder {
 		Queue<Queue<File>> duplicatesByLength=null;
 		try {
 
-			duplicatesByLength = unmap(DuplicateLengthFinder.getResult(threadPool, folder));
+			duplicatesByLength = unmap(DuplicateLengthFinder.getResult(folder, threadPool));
 		}catch(IllegalArgumentException ex) {
 			System.err.println(ex.getMessage());
 			throw ex;
