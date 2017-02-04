@@ -11,8 +11,10 @@ import javax.swing.*;
 import java.io.File;
 import java.util.Collection;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 /**
@@ -47,28 +49,48 @@ public class DupFinderGUI {
         final DupFinderGUI gui = new DupFinderGUI();
         gui.showView();
 
-        final DuplicateLengthFinderCallback callbackLengthFinderCallback= new DuplicateLengthFinderCallback(){
+        long startTime = System.nanoTime();
+        ExecutorService threadPool = Executors.newWorkStealingPool();
 
-            @Override
-            public void enteredNewFolder(String s) {
-                System.out.println(">"+s);
-            }
-        };
-
+        Collection<Queue<File>> duplicatesByLength=null;
         try {
-            ExecutorService threadPool = Executors.newWorkStealingPool();
-            Cluster<Long, File> cluster = DuplicateLengthFinder.getResult(folder, threadPool,callbackLengthFinderCallback);
-            Collection<Queue<File>> fileQueues = cluster.values();
-            Queue<Queue<File>> duplicateContentFilesQueues = DuplicateContentFinder.getResult(threadPool, fileQueues);
-
-            final TreeView treeView=gui.getTreeView();
-            final ViewUpdater viewUpdater=treeView.createViewUpdater(duplicateContentFilesQueues);
-            viewUpdater.run();
-
-        }catch (Throwable ex){
-            gui.forceClose();
+            final Cluster<Long, File>  cluster=DuplicateLengthFinder.getResult(folder,threadPool);
+            duplicatesByLength = cluster.values();
+        }catch(IllegalArgumentException ex) {
+            System.err.println(ex.getMessage());
             throw ex;
         }
+        final Queue<Queue<File>> duplicatesByContent = new ConcurrentLinkedQueue<Queue<File>>();
+        final TreeView view = gui.getTreeView();
+        final Future<?> updater = threadPool.submit(view.createViewUpdater(duplicatesByContent));
+
+        DuplicateContentFinder.getResult(threadPool, duplicatesByLength, duplicatesByContent);
+        updater.cancel(true);
+        long duplicateTime = System.nanoTime();
+        System.out.println("Zeit in Sekunden zum Finden der Duplikate: " + ((duplicateTime - startTime)/1000000000));
+
+//        final DuplicateLengthFinderCallback callbackLengthFinderCallback= new DuplicateLengthFinderCallback(){
+//
+//            @Override
+//            public void enteredNewFolder(String s) {
+//                System.out.println(">"+s);
+//            }
+//        };
+//
+//        try {
+//            ExecutorService threadPool = Executors.newWorkStealingPool();
+//            Cluster<Long, File> cluster = DuplicateLengthFinder.getResult(folder, threadPool,callbackLengthFinderCallback);
+//            Collection<Queue<File>> fileQueues = cluster.values();
+//            Queue<Queue<File>> duplicateContentFilesQueues = DuplicateContentFinder.getResult(threadPool, fileQueues);
+//
+//            final TreeView treeView=gui.getTreeView();
+//            final ViewUpdater viewUpdater=treeView.createViewUpdater(duplicateContentFilesQueues);
+//            viewUpdater.run();
+//
+//        }catch (Throwable ex){
+//            gui.forceClose();
+//            throw ex;
+//        }
 
     }
 

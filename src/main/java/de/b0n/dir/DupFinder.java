@@ -1,6 +1,7 @@
 package de.b0n.dir;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -8,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import de.b0n.dir.processor.Cluster;
 import de.b0n.dir.processor.DuplicateContentFinder;
 import de.b0n.dir.processor.DuplicateLengthFinder;
 import de.b0n.dir.view.AbstractView;
@@ -56,30 +58,22 @@ public class DupFinder {
 		long startTime = System.nanoTime();
 		ExecutorService threadPool = Executors.newWorkStealingPool();
 
-		Queue<Queue<File>> duplicatesByLength=null;
+		Collection<Queue<File>> duplicatesByLength=null;
 		try {
-
-			duplicatesByLength = unmap(DuplicateLengthFinder.getResult(threadPool, folder));
+			final Cluster<Long, File>  cluster=DuplicateLengthFinder.getResult(folder,threadPool);
+			duplicatesByLength = cluster.values();
 		}catch(IllegalArgumentException ex) {
 			System.err.println(ex.getMessage());
 			throw ex;
 		}
 		Queue<Queue<File>> duplicatesByContent = new ConcurrentLinkedQueue<Queue<File>>();
 		Future<?> updater = threadPool.submit(view.createViewUpdater(duplicatesByContent));
+
 		DuplicateContentFinder.getResult(threadPool, duplicatesByLength, duplicatesByContent);
 		updater.cancel(true);
 		long duplicateTime = System.nanoTime();
 		System.out.println("Zeit in Sekunden zum Finden der Duplikate: " + ((duplicateTime - startTime)/1000000000));
 
 	}
-
-	private Queue<Queue<File>> unmap(Map<Long, Queue<File>> input) {
-		Queue<Queue<File>> result = new ConcurrentLinkedQueue<Queue<File>>();
-		for (Long key : input.keySet()) {
-			result.add(input.get(key));
-		}
-		return result;
-	}
-
 
 }
