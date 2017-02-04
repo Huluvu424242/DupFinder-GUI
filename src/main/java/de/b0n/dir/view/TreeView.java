@@ -21,10 +21,6 @@ import javax.swing.tree.TreeSelectionModel;
 
 public class TreeView extends JPanel implements MouseListener, AbstractView {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -8035134769923039322L;
 
 	@Override
     public ViewUpdater createViewUpdater(final Queue<Queue<File>> duplicates) {
