@@ -1,6 +1,10 @@
 package de.b0n.dir;
 
+import de.b0n.dir.view.DuplicateFinderCallback;
 import de.b0n.dir.view.TreeView;
+
+import java.io.File;
+import java.util.Queue;
 
 import javax.swing.*;
 
@@ -76,4 +80,41 @@ public class DupFinderGUI {
         }
         return false;
     }
+
+
+	public DuplicateFinderCallback getCallback() {
+		return new DuplicateFinderCallback() {
+			
+			@Override
+			public void uniqueFiles(int removeUniques) {
+				// TODO Auto-generated method stub				
+			}
+			
+			@Override
+			public void failedFiles(int size) {
+				// TODO Auto-generated method stub				
+			}
+			
+			@Override
+			public void duplicateGroup(Queue<File> queue) {
+				SwingUtilities.invokeLater(new Runnable() {
+
+					@Override
+					public void run() {						
+						treeView.insertDuplicates(queue);		
+					}					
+				});
+			}
+			
+			@Override
+			public void enteredNewFolder(String canonicalPath) {
+				// TODO Auto-generated method stub				
+			}
+
+			@Override
+			public void sumAllFiles(int size) {
+				// TODO Auto-generated method stub				
+			}
+		};
+	}
 }

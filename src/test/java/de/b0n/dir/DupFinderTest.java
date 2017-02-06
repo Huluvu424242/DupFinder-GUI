@@ -49,8 +49,9 @@ public class DupFinderTest {
             DupFinder.main(new String[]{"abc"});
             fail();
 
-        } catch (IllegalArgumentException ex) {
-            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> existiert nicht:"));
+        } catch (IllegalStateException ex) {
+            assertTrue(ex.getMessage().startsWith("Suche fehlgeschlagen"));
+            assertTrue(ex.getCause().getMessage().startsWith("FEHLER: Parameter <Verzeichnis> existiert nicht:"));
         }
     }
 
@@ -60,8 +61,9 @@ public class DupFinderTest {
             DupFinder.main(new String[]{"pom.xml"});
             fail();
 
-        } catch (IllegalArgumentException ex) {
-            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist kein Verzeichnis:"));
+        } catch (IllegalStateException ex) {
+            assertTrue(ex.getMessage().startsWith("Suche fehlgeschlagen"));
+            assertTrue(ex.getCause().getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist kein Verzeichnis:"));
         }
     }
 

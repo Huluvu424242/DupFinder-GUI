@@ -1,31 +1,18 @@
 package de.b0n.dir;
 
 import java.io.File;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
+import de.b0n.dir.processor.Cluster;
 import de.b0n.dir.processor.DuplicateContentFinder;
 import de.b0n.dir.processor.DuplicateLengthFinder;
-import de.b0n.dir.view.AbstractView;
+import de.b0n.dir.view.DuplicateFinderCallback;
 
 public class DupFinder {
 
+	private static final String SEARCH_FAILED = "Suche fehlgeschlagen";
 	private static final String MESSAGE_NO_PARAM = "FEHLER: Parameter <Verzeichnis> fehlt\r\n usage: DupFinder <Verzeichnis>\r\n<Verzeichnis> = Verzeichnis in dem rekursiv nach Duplikaten gesucht wird";
-	private static final String MESSAGE_NO_INSTANCE_PARAM = "FEHLER: Parameter <TreeView> fehlt\r\n usage: new DupFinder(treeView);";
-
-	protected AbstractView view;
-
-	public DupFinder(final AbstractView view){
-		if( view == null ){
-			throw new IllegalArgumentException(MESSAGE_NO_INSTANCE_PARAM);
-		}
-
-		this.view=view;
-	}
 
 	public static void main(String[] args) throws InterruptedException {
 		// Lese Root-Verzeichnis aus Argumenten
@@ -38,48 +25,38 @@ public class DupFinder {
 
 		final DupFinderGUI gui = new DupFinderGUI();
 		gui.showView();
-		final DupFinder dupFinder = new DupFinder(gui.getTreeView());
+		final DupFinder dupFinder = new DupFinder();
 		try {
-			dupFinder.startSearching(folder);
-		}catch (Throwable ex){
+			dupFinder.startSearching(folder, gui.getCallback());
+		} catch (Throwable ex) {
 			gui.forceClose();
-			throw ex;
+			throw new IllegalStateException(SEARCH_FAILED, ex);
 		}
 	}
 
-	public void startSearching(final File folder){
-
-		if( folder == null ){
+	public void startSearching(final File folder, DuplicateFinderCallback duplicateFinderCallback) {
+		if (folder == null) {
 			throw new IllegalArgumentException(MESSAGE_NO_PARAM);
 		}
 
 		long startTime = System.nanoTime();
+
 		ExecutorService threadPool = Executors.newWorkStealingPool();
 
-		Queue<Queue<File>> duplicatesByLength=null;
+		Cluster<Long, File> duplicatesByLength = null;
 		try {
 
-			duplicatesByLength = unmap(DuplicateLengthFinder.getResult(folder, threadPool));
-		}catch(IllegalArgumentException ex) {
+			duplicatesByLength = DuplicateLengthFinder.getResult(folder, threadPool, duplicateFinderCallback);
+		} catch (IllegalArgumentException ex) {
 			System.err.println(ex.getMessage());
 			throw ex;
 		}
-		Queue<Queue<File>> duplicatesByContent = new ConcurrentLinkedQueue<Queue<File>>();
-		Future<?> updater = threadPool.submit(view.createViewUpdater(duplicatesByContent));
-		DuplicateContentFinder.getResult(threadPool, duplicatesByLength, duplicatesByContent);
-		updater.cancel(true);
+		
+		duplicateFinderCallback.sumAllFiles(duplicatesByLength.size());
+		duplicateFinderCallback.uniqueFiles(duplicatesByLength.removeUniques().size());
+		
+		DuplicateContentFinder.getResult(duplicatesByLength.values(), threadPool, duplicateFinderCallback);
 		long duplicateTime = System.nanoTime();
-		System.out.println("Zeit in Sekunden zum Finden der Duplikate: " + ((duplicateTime - startTime)/1000000000));
-
+		System.out.println("Zeit in Sekunden zum Finden der Duplikate: " + ((duplicateTime - startTime) / 1000000000));
 	}
-
-	private Queue<Queue<File>> unmap(Map<Long, Queue<File>> input) {
-		Queue<Queue<File>> result = new ConcurrentLinkedQueue<Queue<File>>();
-		for (Long key : input.keySet()) {
-			result.add(input.get(key));
-		}
-		return result;
-	}
-
-
 }
