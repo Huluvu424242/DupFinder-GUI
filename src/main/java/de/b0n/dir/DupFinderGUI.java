@@ -107,13 +107,19 @@ public class DupFinderGUI {
 			}
 			
 			@Override
-			public void enteredNewFolder(String canonicalPath) {
+			public void enteredNewFolder(File folder) {
 				// TODO Auto-generated method stub				
 			}
 
 			@Override
 			public void sumAllFiles(int size) {
 				// TODO Auto-generated method stub				
+			}
+
+			@Override
+			public void unreadableFolder(File folder) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 	}
