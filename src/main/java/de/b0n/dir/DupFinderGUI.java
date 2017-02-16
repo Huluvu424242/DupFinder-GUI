@@ -87,12 +87,12 @@ public class DupFinderGUI {
 			
 			@Override
 			public void uniqueFiles(int removeUniques) {
-				// TODO Auto-generated method stub				
+                System.out.println("uniqueFiles"+removeUniques);
 			}
 			
 			@Override
 			public void failedFiles(int size) {
-				// TODO Auto-generated method stub				
+                System.out.println("failedFiles"+size);
 			}
 			
 			@Override
@@ -108,17 +108,17 @@ public class DupFinderGUI {
 			
 			@Override
 			public void enteredNewFolder(File folder) {
-				// TODO Auto-generated method stub				
+				System.out.println("enteredNewFolder"+folder.toString());
 			}
 
 			@Override
 			public void sumAllFiles(int size) {
-				// TODO Auto-generated method stub				
+                System.out.println("sumAllFiles"+size);
 			}
 
 			@Override
 			public void unreadableFolder(File folder) {
-				// TODO Auto-generated method stub
+                System.out.println("unreadableFolder"+folder.toString());
 				
 			}
 		};
