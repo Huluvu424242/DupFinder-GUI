@@ -87,17 +87,18 @@
     <!-- jar files the project is dependent on -->
     <dependencies>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.2</version>
+            <groupId>DupFinder</groupId>
+            <artifactId>DupFinder</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.funthomas424242</groupId>
-            <artifactId>org.gui4j</artifactId>
-            <version>0.1.4</version>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- in 4.12 hamcrest dependency is missing -->
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
     <build>
         <plugins>
@@ -109,6 +110,42 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>de.b0n.dir.DupFinder</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- NOTE: We don't need a groupId specification because the group is
+                    org.apache.maven.plugins ...which is assumed by default. -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>package-assemblies</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>de.b0n.dir.DupFinder</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                                <descriptorRef>src</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

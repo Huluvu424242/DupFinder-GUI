@@ -20,3 +20,8 @@ target/
 .project
 .classpath
 
+# backups
+*.*~
+
+# build system
+target/
