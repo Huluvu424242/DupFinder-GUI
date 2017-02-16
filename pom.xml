@@ -105,6 +105,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -113,6 +114,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.7.201606060606</version>
                 <executions>
                     <execution>
                         <goals>
@@ -138,6 +140,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
                 <configuration>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                     <repositoryId>bintray-funthomas424242-releases</repositoryId>
