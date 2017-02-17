@@ -19,40 +19,20 @@ public class DupFinder {
 
 	 public static void main( String args[]){
 		 if (args == null || args.length < 1 || args[0] == null) {
-			 // exit(1): Kein Parameter übergeben
 			 System.err.println(MESSAGE_NO_PARAM);
 			 throw new IllegalArgumentException(MESSAGE_NO_PARAM);
 		 }
+
 		 final DupFinderGUI gui = new DupFinderGUI();
 		 gui.showView();
+
 		 final DupFinder dupFinder = new DupFinder(new File(args[0]));
 		 try {
 			 dupFinder.startSearching( gui.getCallback());
 		 } catch (Throwable ex) {
-			 dupFinder.starteClosingGUIThread(gui);
+			 gui.close();
 			 throw new IllegalStateException(SEARCH_FAILED, ex);
 		 }
-
-	 }
-
-	 protected void starteClosingGUIThread(final DupFinderGUI gui){
-		 new Thread(new Runnable(){
-
-			 @Override
-			 public void run() {
-				 boolean isClosed=false;
-				 while( !isClosed ) {
-					 try {
-						 gui.forceClose();
-						 isClosed = true;
-					 } catch (InterruptedException e) {
-						 Thread.yield();
-					 } catch (Exception ex) {
-						 isClosed = true;
-					 }
-				 }
-			 }
-		 }).start();
 
 	 }
 
