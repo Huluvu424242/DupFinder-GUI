@@ -41,15 +41,16 @@ public class DupFinder {
 			 @Override
 			 public void run() {
 				 boolean isClosed=false;
-				 while( isClosed )
+				 while( !isClosed ) {
 					 try {
 						 gui.forceClose();
-						 isClosed=true;
+						 isClosed = true;
 					 } catch (InterruptedException e) {
 						 Thread.yield();
-					 }catch(Exception ex){
-				 		isClosed=true;
+					 } catch (Exception ex) {
+						 isClosed = true;
 					 }
+				 }
 			 }
 		 }).start();
 

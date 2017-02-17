@@ -17,10 +17,6 @@ import static org.junit.Assume.assumeTrue;
  */
 public class DupFinderTest {
 
-    private static final String OS_NAME = System.getProperty("os.name");
-
-    String unreadableFolder;
-
     final DuplicateFinderCallback duplicateFinderCallback= new DuplicateFinderCallback() {
         @Override
         public void sumAllFiles(int size) {
@@ -52,6 +48,10 @@ public class DupFinderTest {
 
         }
     };
+
+    private static final String OS_NAME = System.getProperty("os.name");
+
+    String unreadableFolder;
 
     @Before
     public void setUp() {
