@@ -17,7 +17,7 @@ import static org.junit.Assume.assumeTrue;
  */
 public class DupFinderTest {
 
-    final DuplicateFinderCallback duplicateFinderCallback= new DuplicateFinderCallback() {
+    final DuplicateFinderCallback duplicateFinderCallback = new DuplicateFinderCallback() {
         @Override
         public void sumAllFiles(int size) {
 
@@ -74,12 +74,28 @@ public class DupFinderTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void nullArguments() throws InterruptedException {
+    public void mainCallnullArguments() throws InterruptedException {
         DupFinder.main(null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void mainCallEmptyArguments() {
+        DupFinder.main(new String[]{});
+        fail();
+    }
+
     @Test
-    public void noArguments() throws IOException, InterruptedException {
+    public void mainCallNullContentArguments() {
+        try{
+            DupFinder.main(new String[]{null});
+            fail();
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
+        }
+    }
+
+    @Test
+    public void mainCallNoneExistFolderArguments() throws IOException, InterruptedException {
         try {
             DupFinder.main(new String[]{"abc"});
             fail();
@@ -108,7 +124,7 @@ public class DupFinderTest {
         assumeTrue("Betriebssystem wird nicht unterstützt: " + OS_NAME, supportedOS());
 
         try {
-            final DupFinder dupFinder=new DupFinder(new File(unreadableFolder));
+            final DupFinder dupFinder = new DupFinder(new File(unreadableFolder));
             dupFinder.startSearching(this.duplicateFinderCallback);
             fail();
 
@@ -119,9 +135,9 @@ public class DupFinderTest {
 
     @Test
     public void validFolderToScan() throws IOException, InterruptedException {
-    	File file = new File("src/test/resources/");
-    	assumeTrue(file.mkdir());
-    	DupFinder.main(new String[]{"src/test/resources/"});
-    	assertTrue(file.delete());
+        File file = new File("src/test/resources/");
+        assumeTrue(file.mkdir());
+        DupFinder.main(new String[]{"src/test/resources/"});
+        assertTrue(file.delete());
     }
 }
