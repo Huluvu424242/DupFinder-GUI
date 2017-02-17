@@ -1,10 +1,13 @@
 package de.b0n.dir;
 
+import de.b0n.dir.view.DuplicateFinderCallback;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Queue;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -17,6 +20,38 @@ public class DupFinderTest {
     private static final String OS_NAME = System.getProperty("os.name");
 
     String unreadableFolder;
+
+    final DuplicateFinderCallback duplicateFinderCallback= new DuplicateFinderCallback() {
+        @Override
+        public void sumAllFiles(int size) {
+
+        }
+
+        @Override
+        public void failedFiles(int i) {
+
+        }
+
+        @Override
+        public void duplicateGroup(Queue<File> queue) {
+
+        }
+
+        @Override
+        public void uniqueFiles(int i) {
+
+        }
+
+        @Override
+        public void enteredNewFolder(File file) {
+
+        }
+
+        @Override
+        public void unreadableFolder(File file) {
+
+        }
+    };
 
     @Before
     public void setUp() {
@@ -73,7 +108,8 @@ public class DupFinderTest {
         assumeTrue("Betriebssystem wird nicht unterstützt: " + OS_NAME, supportedOS());
 
         try {
-            DupFinder.main(new String[]{unreadableFolder});
+            final DupFinder dupFinder=new DupFinder(new File(unreadableFolder));
+            dupFinder.startSearching(this.duplicateFinderCallback);
             fail();
 
         } catch (IllegalArgumentException ex) {

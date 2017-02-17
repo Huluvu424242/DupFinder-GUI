@@ -14,39 +14,69 @@ public class DupFinder {
 	private static final String SEARCH_FAILED = "Suche fehlgeschlagen";
 	private static final String MESSAGE_NO_PARAM = "FEHLER: Parameter <Verzeichnis> fehlt\r\n usage: DupFinder <Verzeichnis>\r\n<Verzeichnis> = Verzeichnis in dem rekursiv nach Duplikaten gesucht wird";
 
-	public static void main(String[] args) throws InterruptedException {
-		// Lese Root-Verzeichnis aus Argumenten
-		if (args == null || args.length < 1 || args[0] == null) {
-			// exit(1): Kein Parameter übergeben
+	 protected final File searchRootFolder;
+
+
+	 public static void main( String args[]){
+		 if (args == null || args.length < 1 || args[0] == null) {
+			 // exit(1): Kein Parameter übergeben
+			 System.err.println(MESSAGE_NO_PARAM);
+			 throw new IllegalArgumentException(MESSAGE_NO_PARAM);
+		 }
+		 final DupFinderGUI gui = new DupFinderGUI();
+		 gui.showView();
+		 final DupFinder dupFinder = new DupFinder(new File(args[0]));
+		 try {
+			 dupFinder.startSearching( gui.getCallback());
+		 } catch (Throwable ex) {
+			 dupFinder.starteClosingGUIThread(gui);
+			 throw new IllegalStateException(SEARCH_FAILED, ex);
+		 }
+
+	 }
+
+	 protected void starteClosingGUIThread(final DupFinderGUI gui){
+		 new Thread(new Runnable(){
+
+			 @Override
+			 public void run() {
+				 boolean isClosed=false;
+				 while( isClosed )
+					 try {
+						 gui.forceClose();
+						 isClosed=true;
+					 } catch (InterruptedException e) {
+						 Thread.yield();
+					 }catch(Exception ex){
+				 		isClosed=true;
+					 }
+			 }
+		 }).start();
+
+	 }
+
+	public DupFinder( final File folder){
+		if (folder == null) {
 			System.err.println(MESSAGE_NO_PARAM);
 			throw new IllegalArgumentException(MESSAGE_NO_PARAM);
 		}
-		final File folder = new File(args[0] + File.separator);
-
-		final DupFinderGUI gui = new DupFinderGUI();
-		gui.showView();
-		final DupFinder dupFinder = new DupFinder();
-		try {
-			dupFinder.startSearching(folder, gui.getCallback());
-		} catch (Throwable ex) {
-			gui.forceClose();
-			throw new IllegalStateException(SEARCH_FAILED, ex);
+		if( folder.getPath().endsWith(File.separator)) {
+			this.searchRootFolder = folder;
+		}else{
+			this.searchRootFolder=new File(folder.getAbsolutePath()+File.separator);
 		}
 	}
 
-	public void startSearching(final File folder, DuplicateFinderCallback duplicateFinderCallback) {
-		if (folder == null) {
-			throw new IllegalArgumentException(MESSAGE_NO_PARAM);
-		}
+	protected void startSearching(final DuplicateFinderCallback duplicateFinderCallback) {
 
 		long startTime = System.nanoTime();
 
-		ExecutorService threadPool = Executors.newWorkStealingPool();
+		final ExecutorService threadPool = Executors.newWorkStealingPool();
 
 		Cluster<Long, File> duplicatesByLength = null;
 		try {
 
-			duplicatesByLength = DuplicateLengthFinder.getResult(folder, threadPool, duplicateFinderCallback);
+			duplicatesByLength = DuplicateLengthFinder.getResult(this.searchRootFolder, threadPool, duplicateFinderCallback);
 		} catch (IllegalArgumentException ex) {
 			System.err.println(ex.getMessage());
 			throw ex;
