@@ -74,6 +74,13 @@
 
     <repositories>
         <repository>
+            <id>tmp-repo</id>
+            <url>file://${basedir}/tmp-repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -91,14 +98,14 @@
             <artifactId>DupFinder</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<!-- in 4.12 hamcrest dependency is missing -->
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!-- in 4.12 hamcrest dependency is missing -->
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
