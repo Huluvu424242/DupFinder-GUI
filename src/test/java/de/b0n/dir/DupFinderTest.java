@@ -2,6 +2,7 @@ package de.b0n.dir;
 
 import de.b0n.dir.view.DuplicateFinderCallback;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -74,7 +75,7 @@ public class DupFinderTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void mainCallnullArguments() throws InterruptedException {
+    public void mainCallNullArguments() throws InterruptedException {
         DupFinder.main(null);
     }
 
@@ -86,7 +87,7 @@ public class DupFinderTest {
 
     @Test
     public void mainCallNullContentArguments() {
-        try{
+        try {
             DupFinder.main(new String[]{null});
             fail();
         } catch (IllegalArgumentException ex) {
@@ -106,20 +107,58 @@ public class DupFinderTest {
         }
     }
 
-    @Test
-    public void noFolderArgument() throws IOException, InterruptedException {
-        try {
-            DupFinder.main(new String[]{"pom.xml"});
-            fail();
 
-        } catch (IllegalStateException ex) {
-            assertTrue(ex.getMessage().startsWith("Suche fehlgeschlagen"));
-            assertTrue(ex.getCause().getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist kein Verzeichnis:"));
+    @Test
+    public void instanceCallNullArguments() throws InterruptedException {
+        try {
+            new DupFinder(null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
+        }
+
+    }
+
+
+    @Test
+    @Ignore
+    public void instanceCallNullContentArguments() {
+        try {
+            final DupFinder dupFinder=new DupFinder(new File(""));
+            dupFinder.startSearching(this.duplicateFinderCallback);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
         }
     }
 
     @Test
-    public void noReadableFolderArgument() throws IOException, InterruptedException {
+    public void instanceCallNoneExistFolderArguments() throws IOException, InterruptedException {
+        try {
+            final DupFinder dupFinder=new DupFinder(new File("abc"));
+            dupFinder.startSearching(this.duplicateFinderCallback);
+            fail();
+
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> existiert nicht:"));
+        }
+    }
+
+
+    @Test
+    public void instanceCallNoFolderArgument() throws IOException, InterruptedException {
+        try {
+            final DupFinder dupFinder=new DupFinder(new File("pom.xml"));
+            dupFinder.startSearching(this.duplicateFinderCallback);
+            fail();
+
+        } catch (IllegalArgumentException ex) {
+            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> ist kein Verzeichnis:"));
+        }
+    }
+
+    @Test
+    public void instanceCallNoReadableFolderArgument() throws IOException, InterruptedException {
         // conditional test
         assumeTrue("Betriebssystem wird nicht unterstützt: " + OS_NAME, supportedOS());
 
