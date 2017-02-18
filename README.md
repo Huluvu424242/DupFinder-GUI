@@ -5,6 +5,12 @@
 # DupFinder-GUI
 Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
 
+## Benutzung
+
+```
+java -jar DupFinder-GUI-0.0.1-SNAPSHOT-jar-with-dependencies.jar <directorypath>
+```
+
 ## Lizenz - GPL v3
 Da die Programmbibliothek [DupFinder](https://github.com/mkymikky/DupFinder) unter der GPL-v3 lizensiert ist,
 müssen alle abgeleiteten Werke ebenfalls unter der GPL-v3 lizensiert werden. Da geplant ist aus der GUI Anwendung 
