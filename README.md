@@ -10,7 +10,7 @@ Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
 ## Benutzung
 
 ```
-java -jar DupFinder-GUI-0.0.1-SNAPSHOT-jar-with-dependencies.jar <directorypath>
+java -jar DupFinder-GUI-0.0.1-jar-with-dependencies.jar <directorypath>
 ```
 
 ## Weiterentwicklung
