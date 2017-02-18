@@ -1,6 +1,7 @@
-package de.b0n.dir;
+package com.github.funthomas424242.dupfinder.gui;
 
-import de.b0n.dir.view.DuplicateFinderCallback;
+import com.github.funthomas424242.dupfinder.gui.DuplicateFinderCallback;
+import com.github.funthomas424242.dupfinder.gui.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
