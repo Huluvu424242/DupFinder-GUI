@@ -119,19 +119,6 @@ public class DupFinderTest {
 
     }
 
-
-    @Test
-    @Ignore //TODO
-    public void instanceCallNullContentArguments() {
-        try {
-            final DupFinder dupFinder=new DupFinder(new File(""));
-            dupFinder.startSearching(this.duplicateFinderCallback);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
-        }
-    }
-
     @Test
     public void instanceCallNoneExistFolderArguments() throws IOException, InterruptedException {
         try {
@@ -172,11 +159,5 @@ public class DupFinderTest {
         }
     }
 
-    @Test
-    public void validFolderToScan() throws IOException, InterruptedException {
-        File file = new File("src/test/resources/");
-        assumeTrue(file.mkdir());
-        DupFinder.main(new String[]{"src/test/resources/"});
-        assertTrue(file.delete());
-    }
+
 }

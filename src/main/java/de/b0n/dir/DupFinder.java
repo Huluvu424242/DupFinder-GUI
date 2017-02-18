@@ -50,7 +50,7 @@ public class DupFinder {
 
 	protected void startSearching(final DuplicateFinderCallback duplicateFinderCallback) {
 
-		long startTime = System.nanoTime();
+		final long startTime = System.nanoTime();
 
 		final ExecutorService threadPool = Executors.newWorkStealingPool();
 
@@ -67,7 +67,7 @@ public class DupFinder {
 		duplicateFinderCallback.uniqueFiles(duplicatesByLength.removeUniques().size());
 		
 		DuplicateContentFinder.getResult(duplicatesByLength.values(), threadPool, duplicateFinderCallback);
-		long duplicateTime = System.nanoTime();
+		final long duplicateTime = System.nanoTime();
 		System.out.println("Zeit in Sekunden zum Finden der Duplikate: " + ((duplicateTime - startTime) / 1000000000));
 	}
 }
