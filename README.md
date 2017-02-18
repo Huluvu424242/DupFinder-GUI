@@ -5,6 +5,8 @@
 # DupFinder-GUI
 Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
 
+[Projektstatistik at BlackDuck (Ohloh)](https://www.openhub.net/p/DupFinder-GUI)
+
 ## Benutzung
 
 ```
