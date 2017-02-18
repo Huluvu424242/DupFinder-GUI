@@ -1,8 +1,8 @@
-package de.b0n.dir;
+package com.github.funthomas424242.dupfinder.gui;
 
-import de.b0n.dir.view.DuplicateFinderCallback;
+import com.github.funthomas424242.dupfinder.gui.DuplicateFinderCallback;
+import com.github.funthomas424242.dupfinder.gui.Launcher;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -16,7 +16,7 @@ import static org.junit.Assume.assumeTrue;
 /**
  * Created by huluvu424242 on 15.01.17.
  */
-public class DupFinderTest {
+public class LauncherTest {
 
     final DuplicateFinderCallback duplicateFinderCallback = new DuplicateFinderCallback() {
         @Override
@@ -76,19 +76,19 @@ public class DupFinderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void mainCallNullArguments() throws InterruptedException {
-        DupFinder.main(null);
+        Launcher.main(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void mainCallEmptyArguments() {
-        DupFinder.main(new String[]{});
+        Launcher.main(new String[]{});
         fail();
     }
 
     @Test
     public void mainCallNullContentArguments() {
         try {
-            DupFinder.main(new String[]{null});
+            Launcher.main(new String[]{null});
             fail();
         } catch (IllegalArgumentException ex) {
             assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
@@ -98,7 +98,7 @@ public class DupFinderTest {
     @Test
     public void mainCallNoneExistFolderArguments() throws IOException, InterruptedException {
         try {
-            DupFinder.main(new String[]{"abc"});
+            Launcher.main(new String[]{"abc"});
             fail();
 
         } catch (IllegalStateException ex) {
@@ -111,32 +111,19 @@ public class DupFinderTest {
     @Test
     public void instanceCallNullArguments() throws InterruptedException {
         try {
-            new DupFinder(null);
+            new Launcher(null);
             fail();
         } catch (IllegalArgumentException ex) {
             assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
         }
 
-    }
-
-
-    @Test
-    @Ignore //TODO
-    public void instanceCallNullContentArguments() {
-        try {
-            final DupFinder dupFinder=new DupFinder(new File(""));
-            dupFinder.startSearching(this.duplicateFinderCallback);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            assertTrue(ex.getMessage().startsWith("FEHLER: Parameter <Verzeichnis> fehlt"));
-        }
     }
 
     @Test
     public void instanceCallNoneExistFolderArguments() throws IOException, InterruptedException {
         try {
-            final DupFinder dupFinder=new DupFinder(new File("abc"));
-            dupFinder.startSearching(this.duplicateFinderCallback);
+            final Launcher launcher =new Launcher(new File("abc"));
+            launcher.startSearching(this.duplicateFinderCallback);
             fail();
 
         } catch (IllegalArgumentException ex) {
@@ -148,8 +135,8 @@ public class DupFinderTest {
     @Test
     public void instanceCallNoFolderArgument() throws IOException, InterruptedException {
         try {
-            final DupFinder dupFinder=new DupFinder(new File("pom.xml"));
-            dupFinder.startSearching(this.duplicateFinderCallback);
+            final Launcher launcher =new Launcher(new File("pom.xml"));
+            launcher.startSearching(this.duplicateFinderCallback);
             fail();
 
         } catch (IllegalArgumentException ex) {
@@ -163,8 +150,8 @@ public class DupFinderTest {
         assumeTrue("Betriebssystem wird nicht unterstützt: " + OS_NAME, supportedOS());
 
         try {
-            final DupFinder dupFinder = new DupFinder(new File(unreadableFolder));
-            dupFinder.startSearching(this.duplicateFinderCallback);
+            final Launcher launcher = new Launcher(new File(unreadableFolder));
+            launcher.startSearching(this.duplicateFinderCallback);
             fail();
 
         } catch (IllegalArgumentException ex) {
@@ -172,11 +159,5 @@ public class DupFinderTest {
         }
     }
 
-    @Test
-    public void validFolderToScan() throws IOException, InterruptedException {
-        File file = new File("src/test/resources/");
-        assumeTrue(file.mkdir());
-        DupFinder.main(new String[]{"src/test/resources/"});
-        assertTrue(file.delete());
-    }
+
 }

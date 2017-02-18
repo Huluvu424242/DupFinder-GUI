@@ -23,7 +23,7 @@
     <groupId>com.github.funthomas424242</groupId>
     <artifactId>DupFinder-GUI</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>${project.artifactId}</name>
     <inceptionYear>2017</inceptionYear>
 
@@ -124,7 +124,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.b0n.dir.DupFinder</mainClass>
+                            <mainClass>com.github.funthomas424242.dupfinder.gui.Launcher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -143,7 +143,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>de.b0n.dir.DupFinder</mainClass>
+                                    <mainClass>com.github.funthomas424242.dupfinder.gui.Launcher</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -233,6 +233,18 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.itemis.maven.plugins</groupId>
+                    <artifactId>unleash-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.itemis.maven.plugins</groupId>
+                            <artifactId>unleash-scm-provider-git</artifactId>
+                            <version>1.0.0</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

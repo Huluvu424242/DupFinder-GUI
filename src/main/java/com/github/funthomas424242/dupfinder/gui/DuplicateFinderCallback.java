@@ -1,4 +1,4 @@
-package de.b0n.dir.view;
+package com.github.funthomas424242.dupfinder.gui;
 
 
 import de.b0n.dir.processor.DuplicateContentFinderCallback;

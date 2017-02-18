@@ -1,7 +1,6 @@
-package de.b0n.dir;
+package com.github.funthomas424242.dupfinder.gui.treeview;
 
-import de.b0n.dir.view.DuplicateFinderCallback;
-import de.b0n.dir.view.TreeView;
+import com.github.funthomas424242.dupfinder.gui.DuplicateFinderCallback;
 
 import java.io.Closeable;
 import java.io.File;
@@ -13,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by huluvu424242 on 16.01.17.
  */
-public class DupFinderGUI implements Closeable {
+public class TreeGUI implements Closeable {
 
     protected JFrame frame;
 
