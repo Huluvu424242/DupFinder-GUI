@@ -1,4 +1,4 @@
-package de.b0n.dir.view;
+package de.b0n.dir;
 
 
 import de.b0n.dir.processor.DuplicateContentFinderCallback;

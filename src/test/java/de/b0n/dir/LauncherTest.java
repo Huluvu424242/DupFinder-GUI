@@ -1,6 +1,5 @@
 package de.b0n.dir;
 
-import de.b0n.dir.view.DuplicateFinderCallback;
 import org.junit.Before;
 import org.junit.Test;
 

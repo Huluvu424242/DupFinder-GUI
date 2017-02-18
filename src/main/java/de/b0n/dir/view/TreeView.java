@@ -1,7 +1,5 @@
 package de.b0n.dir.view;
 
-import de.b0n.dir.TreePopupMenu;
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -35,7 +33,7 @@ public class TreeView extends JPanel implements MouseListener {
 		treeModel.insertNodeInto(master, top, top.getChildCount());
 
 		for (File file : files) {
-			treeModel.insertNodeInto(new DuplicateTreeNode(file.getAbsolutePath()), master, master.getChildCount());
+			treeModel.insertNodeInto(new TreeEntryNode(file.getAbsolutePath()), master, master.getChildCount());
 		}
 		tree.scrollPathToVisible(new TreePath(master.getPath()));
 		//TODO: repaint();?
@@ -70,8 +68,8 @@ public class TreeView extends JPanel implements MouseListener {
 
 			int row = tree.getClosestRowForLocation(e.getX(), e.getY());
 			TreePath path = tree.getPathForRow(row);
-			if (path.getLastPathComponent() instanceof DuplicateTreeNode) {
-				DuplicateTreeNode node = (DuplicateTreeNode) path.getLastPathComponent();
+			if (path.getLastPathComponent() instanceof TreeEntryNode) {
+				TreeEntryNode node = (TreeEntryNode) path.getLastPathComponent();
 				TreePopupMenu menu = new TreePopupMenu(node, tree);
 				menu.show(e.getComponent(), e.getX(), e.getY());
 			}

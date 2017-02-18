@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import de.b0n.dir.processor.Cluster;
 import de.b0n.dir.processor.DuplicateContentFinder;
 import de.b0n.dir.processor.DuplicateLengthFinder;
-import de.b0n.dir.view.DuplicateFinderCallback;
+import de.b0n.dir.view.TreeGUI;
 
 public class Launcher {
 
@@ -23,7 +23,7 @@ public class Launcher {
 			 throw new IllegalArgumentException(MESSAGE_NO_PARAM);
 		 }
 
-		 final DupFinderGUI gui = new DupFinderGUI();
+		 final TreeGUI gui = new TreeGUI();
 		 gui.showView();
 
 		 final Launcher launcher = new Launcher(new File(args[0]));
