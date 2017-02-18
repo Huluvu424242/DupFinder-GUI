@@ -1,4 +1,4 @@
-package com.github.funthomas424242.dupfinder.gui.view;
+package com.github.funthomas424242.dupfinder.gui.treeview;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 

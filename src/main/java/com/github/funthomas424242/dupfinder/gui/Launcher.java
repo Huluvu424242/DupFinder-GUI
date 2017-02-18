@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import de.b0n.dir.processor.Cluster;
 import de.b0n.dir.processor.DuplicateContentFinder;
 import de.b0n.dir.processor.DuplicateLengthFinder;
-import com.github.funthomas424242.dupfinder.gui.view.TreeGUI;
+import com.github.funthomas424242.dupfinder.gui.treeview.TreeGUI;
 
 public class Launcher {
 
