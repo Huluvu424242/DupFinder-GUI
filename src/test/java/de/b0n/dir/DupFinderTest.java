@@ -121,7 +121,7 @@ public class DupFinderTest {
 
 
     @Test
-    @Ignore
+    @Ignore //TODO
     public void instanceCallNullContentArguments() {
         try {
             final DupFinder dupFinder=new DupFinder(new File(""));
