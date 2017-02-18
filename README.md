@@ -11,6 +11,14 @@ Simple Oberfläche zur Bedienung der Duplikate Finder Bibliothek DupFinder.
 java -jar DupFinder-GUI-0.0.1-SNAPSHOT-jar-with-dependencies.jar <directorypath>
 ```
 
+## Weiterentwicklung
+
+### Bau eines Releases
+```
+mvn unleash:perform 
+```
+**Hinweis**: Aktuell können wir kein automatisches Release über maven bauen, da die DupFinder lib noch nicht als Release verfügbar ist und wir somit eine SNAPSHOT Abhängigkeit besitzen.
+
 ## Lizenz - GPL v3
 Da die Programmbibliothek [DupFinder](https://github.com/mkymikky/DupFinder) unter der GPL-v3 lizensiert ist,
 müssen alle abgeleiteten Werke ebenfalls unter der GPL-v3 lizensiert werden. Da geplant ist aus der GUI Anwendung 
