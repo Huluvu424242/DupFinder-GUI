@@ -1,8 +1,8 @@
-package de.b0n.dir;
+package com.github.funthomas424242.dupfinder.gui.treeview;
 
-import de.b0n.dir.view.DuplicateFinderCallback;
-import de.b0n.dir.view.TreeView;
+import com.github.funthomas424242.dupfinder.gui.DuplicateFinderCallback;
 
+import java.io.Closeable;
 import java.io.File;
 import java.util.Queue;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by huluvu424242 on 16.01.17.
  */
-public class DupFinderGUI {
+public class TreeGUI implements Closeable {
 
     protected JFrame frame;
 
@@ -20,14 +20,6 @@ public class DupFinderGUI {
 
     public TreeView getTreeView(){
         return treeView;
-    }
-
-
-    public static void main(String[] args) {
-
-        final DupFinderGUI gui = new DupFinderGUI();
-        gui.showView();
-
     }
 
     public void showView(){
@@ -47,7 +39,7 @@ public class DupFinderGUI {
      * this method should be invoked from the
      * event dispatch thread.
      */
-    private void createAndShowGUI() {
+    protected void createAndShowGUI() {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
@@ -67,18 +59,24 @@ public class DupFinderGUI {
         frame.setVisible(true);
     }
 
-    public boolean forceClose() throws InterruptedException {
+    public void close(){
         if(frame==null) {
             // TODO Es kann sein, dass frame noch nicht gestartet wurde wegen hoher Last
             // besser wäre irgendwas mit einem Future
             Thread.yield();
-            Thread.sleep(1000);
+            boolean hasSlept=false;
+            while(!hasSlept) {
+                try {
+                    Thread.sleep(1000);
+                    hasSlept=true;
+                } catch (InterruptedException e) {
+                    // nix zu tun
+                }
+            }
         }
         if(frame!=null){
             frame.dispose();
-            return true;
         }
-        return false;
     }
 
 

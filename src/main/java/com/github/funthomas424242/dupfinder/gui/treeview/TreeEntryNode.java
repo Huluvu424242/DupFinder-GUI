@@ -1,4 +1,4 @@
-package de.b0n.dir.view;
+package com.github.funthomas424242.dupfinder.gui.treeview;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -7,7 +7,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * 
  * @author niklas.polke
  */
-public class DuplicateTreeNode extends DefaultMutableTreeNode {
+public class TreeEntryNode extends DefaultMutableTreeNode {
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,13 +15,13 @@ public class DuplicateTreeNode extends DefaultMutableTreeNode {
 
 	private final long sizeInKB;
 
-	public DuplicateTreeNode(final String fileAbsolutePath) {
+	public TreeEntryNode(final String fileAbsolutePath) {
 		super(fileAbsolutePath);
 		this.fileAbsolutePath = fileAbsolutePath;
 		this.sizeInKB = -1;
 	}
 
-	public DuplicateTreeNode(final String fileAbsolutePath, final long sizeInKB) {
+	public TreeEntryNode(final String fileAbsolutePath, final long sizeInKB) {
 		super(fileAbsolutePath + " Größe: " + sizeInKB + "kB");
 		this.fileAbsolutePath = fileAbsolutePath;
 		this.sizeInKB = sizeInKB;
