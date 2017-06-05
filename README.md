@@ -17,7 +17,11 @@ java -jar DupFinder-GUI-0.0.1-jar-with-dependencies.jar <directorypath>
 
 ### Bau eines Releases
 ```
-mvn unleash:perform 
+git commit -a
+git push
+mvn unleash:perform -Dunleash.scmUsername=XXXX -Dunleash.scmPassword=xxxx
+git checkout tags/<TagName>
+mvn deploy
 ```
 **Hinweis**: Aktuell können wir kein automatisches Release über maven bauen, da die DupFinder lib noch nicht als Release verfügbar ist und wir somit eine SNAPSHOT Abhängigkeit besitzen.
 
