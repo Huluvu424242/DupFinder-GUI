@@ -23,7 +23,7 @@
     <groupId>com.github.funthomas424242</groupId>
     <artifactId>DupFinder-GUI</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <inceptionYear>2017</inceptionYear>
 
