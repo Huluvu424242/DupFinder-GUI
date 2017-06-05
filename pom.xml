@@ -72,31 +72,34 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>tmp-repo</id>
-            <url>file://${basedir}/tmp-repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-funthomas424242-funthomas424242-libs</id>
-            <name>bintray</name>
-            <url>http://dl.bintray.com/funthomas424242/funthomas424242-libs</url>
-        </repository>
-    </repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray-plugins</name>
+			<url>http://jcenter.bintray.com</url>
+		</pluginRepository>
+	</pluginRepositories>
+  <repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+  </repositories>
 
 
     <!-- jar files the project is dependent on -->
     <dependencies>
         <dependency>
-            <groupId>DupFinder</groupId>
+            <groupId>de.b0n</groupId>
             <artifactId>DupFinder</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
