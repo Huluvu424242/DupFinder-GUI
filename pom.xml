@@ -35,6 +35,7 @@
         <artifactId>${project.artifactId}</artifactId>
         <version>${project.version}</version>
         <updateReleaseInfo>true</updateReleaseInfo>
+        <unleash.workflow>${project.basedir}/src/main/resources/createRelease.workflow</unleash.workflow>
     </properties>
 
 
